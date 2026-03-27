@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { User, Hash, CheckCircle, XCircle, Loader2, Shield, Bookmark, Camera } from "lucide-react";
+import { User, Hash, CheckCircle, XCircle, Loader2, Shield, Bookmark } from "lucide-react";
 import { recordAttendance, type AttendanceResult } from "@/app/actions";
 
 function AttendanceForm() {

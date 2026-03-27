@@ -19,9 +19,6 @@ export async function recordAttendance(
 
     let supabase;
     try {
-      console.log("DEBUG: Initializing Supabase client...");
-      console.log("DEBUG: URL starts with:", process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 10));
-      console.log("DEBUG: Key starts with:", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.substring(0, 10));
       supabase = getSupabaseClient();
     } catch (configError: any) {
       console.error("Configuration Error:", configError.message);
