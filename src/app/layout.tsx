@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "QR Attendance System",
+  title: "Check Vardz",
   description:
     "A fast, mobile-first QR code attendance system for classrooms and events.",
 };

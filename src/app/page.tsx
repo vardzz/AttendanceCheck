@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { User, Hash, CheckCircle, XCircle, Loader2, Shield, Bookmark } from "lucide-react";
+import { User, Hash, CheckCircle, XCircle, Loader2, Shield, Bookmark, QrCode } from "lucide-react";
 import { recordAttendance, type AttendanceResult } from "@/app/actions";
 
 function AttendanceForm() {
@@ -21,17 +21,104 @@ function AttendanceForm() {
 
   if (!sessionId) {
     return (
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center">
-        <div className="w-20 h-20 rounded-2xl bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-8">
-          <Shield className="w-10 h-10 text-red-500" />
+      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center min-h-[80vh] relative overflow-hidden">
+        {/* Background Gradients */}
+        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-2xl w-full flex flex-col items-center animate-in fade-in duration-1000 slide-in-from-bottom-4">
+          <div className="mb-8">
+             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-widest animate-pulse">
+               <Shield className="w-3.5 h-3.5" /> Secure Portal
+             </div>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
+            Attendance <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 font-serif italic">Check</span>
+          </h1>
+          
+          <p className="text-gray-400 text-lg mb-12 max-w-md leading-relaxed">
+            Welcome to the attendance system. Please scan the QR code below using your mobile device to record your attendance.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 w-full max-w-4xl px-4">
+            {/* Station 3CS-A */}
+            <div className="relative group flex flex-col items-center">
+              <div className="absolute -inset-4 bg-indigo-500/20 rounded-[2.5rem] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500" />
+              <div className="relative bg-[#0A0A0B]/80 backdrop-blur-3xl border border-white/10 p-6 rounded-[2.5rem] shadow-2xl transform hover:scale-[1.05] transition-transform duration-500">
+                <div className="relative w-48 h-48 bg-white rounded-2xl overflow-hidden p-3 shadow-inner ring-4 ring-white/5">
+                  <img 
+                    src="/qr-3csa.png" 
+                    alt="3CS-A QR Code" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://attendance-qr.vercel.app?room=3CS-A";
+                    }}
+                  />
+                </div>
+                <div className="absolute top-6 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-indigo-400 to-transparent animate-[scan_3s_ease-in-out_infinite] opacity-50" />
+              </div>
+              <div className="mt-6 text-center">
+                <h3 className="text-2xl font-black text-white tracking-widest uppercase">3CS-A</h3>
+                <p className="text-indigo-400/60 text-[10px] font-bold tracking-[0.2em] mt-1">MAIN SECTION</p>
+              </div>
+            </div>
+
+            {/* Station 3CS-B */}
+            <div className="relative group flex flex-col items-center">
+              <div className="absolute -inset-4 bg-purple-500/20 rounded-[2.5rem] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500" />
+              <div className="relative bg-[#0A0A0B]/80 backdrop-blur-3xl border border-white/10 p-6 rounded-[2.5rem] shadow-2xl transform hover:scale-[1.05] transition-transform duration-500">
+                <div className="relative w-48 h-48 bg-white rounded-2xl overflow-hidden p-3 shadow-inner ring-4 ring-white/5">
+                  <img 
+                    src="/qr-3csb.png" 
+                    alt="3CS-B QR Code" 
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://attendance-qr.vercel.app?room=3CS-B";
+                    }}
+                  />
+                </div>
+                <div className="absolute top-6 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent animate-[scan_3s_ease-in-out_infinite] opacity-50" />
+              </div>
+              <div className="mt-6 text-center">
+                <h3 className="text-2xl font-black text-white tracking-widest uppercase">3CS-B</h3>
+                <p className="text-purple-400/60 text-[10px] font-bold tracking-[0.2em] mt-1">SUB SECTION</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-xl text-left">
+            {[
+              { num: "01", title: "Scan", desc: "Open your camera app and point it at the QR code.", icon: QrCode },
+              { num: "02", title: "Fill", desc: "Enter your official student details in the form.", icon: User },
+              { num: "03", title: "Verify", desc: "Submit and confirm your attendance instantly.", icon: CheckCircle }
+            ].map((step) => (
+              <div key={step.num} className="p-5 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-colors group">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                    <step.icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-indigo-400/50 font-mono text-xs font-bold leading-none">{step.num}</span>
+                </div>
+                <div className="text-white font-bold text-sm mb-1 group-hover:text-indigo-300 transition-colors">{step.title}</div>
+                <p className="text-gray-500 text-[11px] leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-16 text-gray-700 font-mono text-[10px] uppercase tracking-[0.2em]">
+            Horizon Secure Authorization Active
+          </div>
         </div>
-        <h1 className="text-3xl font-bold text-white mb-4">Access Restricted</h1>
-        <p className="text-gray-400 max-w-sm leading-relaxed">
-          This system is only accessible by scanning a valid QR code located in your classroom.
-        </p>
-        <p className="mt-8 text-[10px] text-gray-700 font-mono tracking-widest uppercase">
-          Secret Token Required
-        </p>
+        
+        <style jsx>{`
+          @keyframes scan {
+            0%, 100% { top: 2rem; opacity: 0; }
+            50% { top: 18rem; opacity: 1; }
+          }
+        `}</style>
       </main>
     );
   }

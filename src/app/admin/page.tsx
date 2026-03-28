@@ -73,7 +73,7 @@ export default async function AdminPage() {
                       Student ID
                     </th>
                     <th className="text-left px-4 py-3 text-gray-400 font-medium">
-                      Session
+                      Section
                     </th>
                     <th className="text-left px-4 py-3 text-gray-400 font-medium">
                       Scanned At
