@@ -41,50 +41,66 @@ function AttendanceForm() {
             Welcome to the attendance system. Please scan the QR code below using your mobile device to record your attendance.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 w-full max-w-4xl px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-20 w-full max-w-5xl px-4">
             {/* Station 3CS-A */}
             <div className="relative group flex flex-col items-center">
-              <div className="absolute -inset-4 bg-indigo-500/20 rounded-[2.5rem] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative bg-[#0A0A0B]/80 backdrop-blur-3xl border border-white/10 p-6 rounded-[2.5rem] shadow-2xl transform hover:scale-[1.05] transition-transform duration-500">
-                <div className="relative w-48 h-48 bg-white rounded-2xl overflow-hidden p-3 shadow-inner ring-4 ring-white/5">
+              <div className="absolute -inset-6 bg-cyan-500/10 rounded-[3rem] opacity-0 group-hover:opacity-100 blur-3xl transition-all duration-700" />
+              <div className="relative bg-[#0D0D0F]/90 backdrop-blur-3xl border border-white/5 p-7 rounded-[3rem] shadow-[0_0_80px_-20px_rgba(6,182,212,0.15)] ring-1 ring-white/10 transform hover:scale-[1.03] transition-all duration-500">
+                <div className="relative w-56 h-56 bg-white rounded-[2rem] overflow-hidden p-4 shadow-2xl ring-8 ring-black/20">
                   <img 
                     src="/qr-3csa.png" 
                     alt="3CS-A QR Code" 
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = "https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://attendance-qr.vercel.app?room=3CS-A";
                     }}
                   />
+                  {/* Internal Corners */}
+                  <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-black/5 rounded-tl-xl" />
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-black/5 rounded-br-xl" />
                 </div>
-                <div className="absolute top-6 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-indigo-400 to-transparent animate-[scan_3s_ease-in-out_infinite] opacity-50" />
+                {/* Status Badge */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black border border-emerald-500/30 flex items-center gap-1.5 shadow-xl">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                  <span className="text-[9px] font-black text-emerald-500 uppercase tracking-tighter">Live Station</span>
+                </div>
+                <div className="absolute top-7 left-7 right-7 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-[scan_3s_ease-in-out_infinite] opacity-40" />
               </div>
-              <div className="mt-6 text-center">
-                <h3 className="text-2xl font-black text-white tracking-widest uppercase">3CS-A</h3>
-                <p className="text-indigo-400/60 text-[10px] font-bold tracking-[0.2em] mt-1">MAIN SECTION</p>
+              <div className="mt-8 text-center">
+                <h3 className="text-2xl font-bold text-white tracking-widest">3CS-A</h3>
+                <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em] mt-2">Section A</p>
               </div>
             </div>
 
             {/* Station 3CS-B */}
             <div className="relative group flex flex-col items-center">
-              <div className="absolute -inset-4 bg-purple-500/20 rounded-[2.5rem] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative bg-[#0A0A0B]/80 backdrop-blur-3xl border border-white/10 p-6 rounded-[2.5rem] shadow-2xl transform hover:scale-[1.05] transition-transform duration-500">
-                <div className="relative w-48 h-48 bg-white rounded-2xl overflow-hidden p-3 shadow-inner ring-4 ring-white/5">
+              <div className="absolute -inset-6 bg-indigo-500/10 rounded-[3rem] opacity-0 group-hover:opacity-100 blur-3xl transition-all duration-700" />
+              <div className="relative bg-[#0D0D0F]/90 backdrop-blur-3xl border border-white/5 p-7 rounded-[3rem] shadow-[0_0_80px_-20px_rgba(99,102,241,0.15)] ring-1 ring-white/10 transform hover:scale-[1.03] transition-all duration-500">
+                <div className="relative w-56 h-56 bg-white rounded-[2rem] overflow-hidden p-4 shadow-2xl ring-8 ring-black/20">
                   <img 
                     src="/qr-3csb.png" 
                     alt="3CS-B QR Code" 
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain grayscale-[0.2] group-hover:grayscale-0 transition-all duration-500"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.src = "https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://attendance-qr.vercel.app?room=3CS-B";
                     }}
                   />
+                  {/* Internal Corners */}
+                  <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-black/5 rounded-tl-xl" />
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-black/5 rounded-br-xl" />
                 </div>
-                <div className="absolute top-6 left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent animate-[scan_3s_ease-in-out_infinite] opacity-50" />
+                {/* Status Badge */}
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black border border-emerald-500/30 flex items-center gap-1.5 shadow-xl">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                  <span className="text-[9px] font-black text-emerald-500 uppercase tracking-tighter">Live Station</span>
+                </div>
+                <div className="absolute top-7 left-7 right-7 h-0.5 bg-gradient-to-r from-transparent via-indigo-400 to-transparent animate-[scan_3s_ease-in-out_infinite] opacity-40" />
               </div>
-              <div className="mt-6 text-center">
-                <h3 className="text-2xl font-black text-white tracking-widest uppercase">3CS-B</h3>
-                <p className="text-purple-400/60 text-[10px] font-bold tracking-[0.2em] mt-1">SUB SECTION</p>
+              <div className="mt-8 text-center">
+                <h3 className="text-2xl font-bold text-white tracking-widest">3CS-B</h3>
+                <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em] mt-2">Section B</p>
               </div>
             </div>
           </div>
